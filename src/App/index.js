@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import useLocalStorage from './UseLocalStorage';
 import AppUI from './AppUI';
 import './App.css';
@@ -16,11 +16,12 @@ localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
 
 function App() { 
 //  let parsedTodos = JSON.parse(localStorage.getItem('TODOS_V1'));
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', [])
+  const {item: todos, setItem: saveTodos, loading, error} = useLocalStorage('TODOS_V1', [])
   const [searchValue, setSearchValue] = useState('');
 
   const completedTodos = todos.filter((value)=>value.completed).length;
   const totalTodos = todos.length;
+
   const searchedTodos = todos.filter((value)=>value.text.toUpperCase().includes(searchValue.toUpperCase()))
 
   const clickedTodo = (index)=>{
@@ -36,6 +37,8 @@ function App() {
 
   return (
     <AppUI
+    loading={loading}
+    error={error}
     completedTodos={completedTodos}
     totalTodos={totalTodos}
     searchValue={searchValue}
