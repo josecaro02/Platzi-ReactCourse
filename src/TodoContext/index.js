@@ -4,7 +4,7 @@ import  useLocalStorage  from "./UseLocalStorage";
 const TodoContext = createContext();
 
 function TodoProvider({ children }) {
-  const { item: todos, setItem: saveTodos, loading, error } = useLocalStorage('TODOS_V1', [])
+  const { item: todos, saveItem: saveTodos, loading, error } = useLocalStorage('TODOS_V1', [])
   const [searchValue, setSearchValue] = useState('');
 
   const completedTodos = todos.filter((value) => value.completed).length;
